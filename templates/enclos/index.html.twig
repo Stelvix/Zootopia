@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enclos index{% endblock %}
+
+{% block body %}
+    <h1>Enclos index</h1>
+
+    <table class="table" style="border-radius: 20px; overflow: hidden; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Superficie</th>
+                <th>Capacite_max</th>
+                <th>Espace Parent</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for enclo in enclos %}
+            <tr>
+                <td>{{ enclo.id }}</td>
+                <td>{{ enclo.Nom }}</td>
+                <td>{{ enclo.Superficie }} m²</td>
+                <td>{{ enclo.CapaciteMax }}</td>
+                <td>{{ enclo.espace ? enclo.espace.Nom : 'N/A' }}</td>
+                <td>
+                    <a class="btn btn-outline-success" href="{{ path('app_enclos_show', {'id': enclo.id}) }}">show</a>
+                    <a class="btn btn-outline-info" href="{{ path('app_enclos_edit', {'id': enclo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_enclos_new') }}">Create new</a>
+{% endblock %}

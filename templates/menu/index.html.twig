@@ -1,0 +1,26 @@
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg " style="background:rgba(255,255,255,0.2) ;backdrop-filter: blur(10px);border-radius: 50px; padding-left: 3%; padding-right: 3%; width: auto; ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="font-size: 25px; color: white"> <i class="fa-solid fa-paw fa-bounce"></i> Zootopia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" style="color: white">
+                <span class="navbar-toggler-icon" style="color: white"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav" style="font-size: 20px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"  style="color: white" href="{{ path('app_espace_index') }}">Espaces</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: white" href="{{ path('app_enclos_index') }}">Enclos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: white" href="{{ path('app_animaux_index') }}">Animaux</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enclos{% endblock %}
+
+{% block body %}
+    <h1>Enclos</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ enclo.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ enclo.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Superficie</th>
+                <td>{{ enclo.Superficie }}</td>
+            </tr>
+            <tr>
+                <th>Capacite_max</th>
+                <td>{{ enclo.CapaciteMax }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-warning" href="{{ path('app_enclos_index') }}">back to list</a>
+
+    <a class="btn btn-outline-info" href="{{ path('app_enclos_edit', {'id': enclo.id}) }}">edit</a>
+
+    {{ include('enclos/_delete_form.html.twig') }}
+{% endblock %}
