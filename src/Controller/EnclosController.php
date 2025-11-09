@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Enclos;
 use App\Form\EnclosType;
 use App\Repository\EnclosRepository;
+use App\Repository\AnimauxRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,6 +49,19 @@ final class EnclosController extends AbstractController
     {
         return $this->render('enclos/show.html.twig', [
             'enclo' => $enclo,
+        ]);
+    }
+// voir les animaux par categorie d'enclos
+
+
+#[Route('/enclos/voir/{id}', name: 'app_enclos_voir', methods: ['GET'])]
+    public function voir(Enclos $enclo, AnimauxRepository $animauxrepo): Response
+    {
+    $animalsInEnclos = $animauxrepo->findBy(['enclos' => $enclo]);
+
+        return $this->render('enclos/voir.html.twig', [
+            'enclo' => $enclo,
+            'animalsInEnclos' => $animalsInEnclos,
         ]);
     }
 

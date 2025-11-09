@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: EspaceRepository::class)]
 class Espace
@@ -22,9 +24,17 @@ class Espace
     #[ORM\Column]
     private ?float $superficie = null;
 
+    #[Assert\LessThanOrEqual(
+        propertyPath: 'Date_fermeture',
+        message: 'La date d\'ouverture doit être antérieure ou égale à la date de fermeture.'
+    )]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $Date_ouverture = null;
 
+    #[Assert\GreaterThan(
+        propertyPath: 'Date_ouverture',
+        message: 'La date de fermeture doit être postérieure à la date d\'ouverture.'
+    )]
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $Date_fermeture = null;
 
@@ -87,9 +97,12 @@ class Espace
 
     public function setDateFermeture(?\DateTime $Date_fermeture): static
     {
-        $this->Date_fermeture = $Date_fermeture;
 
-        return $this;
+
+       $this->Date_fermeture = $Date_fermeture;
+
+               return $this;
+
     }
 
     /**
@@ -121,4 +134,16 @@ class Espace
 
         return $this;
     }
+
+#[Assert\Callback]
+public function validationDates(ExecutionContextInterface $context): void
+{
+    if ($this->Date_fermeture !== null && $this->Date_ouverture === null) {
+        $context->buildViolation('Veuillez renseigner la date d\'ouverture avant de définir une date de fermeture.')
+            ->atPath('Date_fermeture')
+            ->addViolation();
+    }
+}
+
+
 }

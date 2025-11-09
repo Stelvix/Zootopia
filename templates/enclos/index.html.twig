@@ -1,41 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Enclos index{% endblock %}
+{% block title %}Liste des Enclos{% endblock %}
 
 {% block body %}
-    <h1>Enclos index</h1>
+    <div class="container mt-4">
+        <h1 class="mb-4 text-center">Liste des Enclos</h1>
 
-    <table class="table" style="border-radius: 20px; overflow: hidden; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-        <thead>
+        <table class="table table-hover align-middle text-center"
+               style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <thead class="table-dark">
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Nom</th>
                 <th>Superficie</th>
-                <th>Capacite_max</th>
-                <th>Espace Parent</th>
-                <th>actions</th>
+                <th>Capacité max</th>
+                <th>Animaux présents</th>
+                <th>Statut</th>
+                <th>Espace parent</th>
+                <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for enclo in enclos %}
-            <tr>
-                <td>{{ enclo.id }}</td>
-                <td>{{ enclo.Nom }}</td>
-                <td>{{ enclo.Superficie }} m²</td>
-                <td>{{ enclo.CapaciteMax }}</td>
-                <td>{{ enclo.espace ? enclo.espace.Nom : 'N/A' }}</td>
-                <td>
-                    <a class="btn btn-outline-success" href="{{ path('app_enclos_show', {'id': enclo.id}) }}">show</a>
-                    <a class="btn btn-outline-info" href="{{ path('app_enclos_edit', {'id': enclo.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for enclo in enclos %}
+                <tr>
+                    <td>{{ enclo.id }}</td>
+                    <td>{{ enclo.Nom }}</td>
+                    <td>{{ enclo.Superficie }} m²</td>
+                    <td>
+                        <span class="badge bg-success">{{ enclo.CapaciteMax }}</span>
+                    </td>
+                    <td>
+                        {% if enclo.animauxes|length == 0 %}
+                            <span class="badge bg-secondary">Aucun</span>
+                        {% else %}
+                            <span class="badge bg-info text-dark">{{ enclo.animauxes|length }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if enclo.Quarantaine %}
+                            <span class="badge bg-danger">En quarantaine</span>
+                        {% else %}
+                            <span class="badge bg-success">Non en quarantaine</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ enclo.espace ? enclo.espace.Nom : 'N/A' }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-success" href="{{ path('app_enclos_voir', {'id': enclo.id}) }}">
+                            Voir
+                        </a>
+                        <a class="btn btn-sm btn-outline-primary" href="{{ path('app_enclos_edit', {'id': enclo.id}) }}">
+                            Modifier
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8" class="text-muted">Aucun enclos trouvé.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a class="btn btn-primary" href="{{ path('app_enclos_new') }}">Create new</a>
+        <div class="text-center mt-4">
+            <a class="btn btn-primary" href="{{ path('app_enclos_new') }}">
+                Créer un nouvel enclos
+            </a>
+        </div>
+    </div>
 {% endblock %}

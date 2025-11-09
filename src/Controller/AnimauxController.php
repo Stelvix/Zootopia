@@ -62,6 +62,9 @@ $this->addFlash('error', 'L\'enclos "' . $enclos->getNom() . '" a atteint sa cap
     #[Route('/{id}/edit', name: 'app_animaux_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Animaux $animaux, EntityManagerInterface $entityManager): Response
     {
+
+
+
         $form = $this->createForm(AnimauxType::class, $animaux);
         $form->handleRequest($request);
 

@@ -207,6 +207,11 @@ class Animaux
     {
         $this->EsEnQuarantaine = $EsEnQuarantaine;
 
+        // Si l'animal appartient à un enclos, mettre à jour le statut de quarantaine de l'enclos
+        if ($this->enclos) {
+            $this->enclos->updateQuarantaineStatus();
+        }
+
         return $this;
     }
 

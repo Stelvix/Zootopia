@@ -17,6 +17,7 @@ class EnclosType extends AbstractType
             ->add('Nom')
             ->add('Superficie')
             ->add('CapaciteMax')
+            ->add('Quarantaine')
             ->add('espace', EntityType::class, [
                 'class' => Espace::class,
                 'choice_label' => 'nom',

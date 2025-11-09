@@ -40,6 +40,9 @@ class Enclos
     #[ORM\OneToMany(targetEntity: Animaux::class, mappedBy: 'enclos')]
     private Collection $animauxes;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $Quarantaine = null;
+
     public function __construct()
     {
         $this->animauxes = new ArrayCollection();
@@ -133,6 +136,36 @@ if ($this->animauxes->count() >= $this->CapaciteMax) {
         return $this;
     }
 
+    public function isQuarantaine(): ?bool
+    {
+        return $this->Quarantaine;
+    }
+
+    public function setQuarantaine(?bool $Quarantaine): static
+    {
+        // on met à jour le statut de quarantaine pour tous les animaux de l'enclos
+        foreach ($this->animauxes as $animal) {
+            $animal->setEsEnQuarantaine($Quarantaine);
+        }
+        $this->Quarantaine = $Quarantaine;
+
+        return $this;
+    }
+
+    // Méthode pour mettre à jour le statut de quarantaine de l'enclos
+    public function updateQuarantaineStatus(): void
+    {
+    $enQuarantaine = false;
+
+    // Vérifier si au moins un animal est en quarantaine
+    foreach ($this->animauxes as $animal) {
+        if ($animal->isEsEnQuarantaine()) {
+            $enQuarantaine = true;
+            break;
+            }
+        }
+    $this->Quarantaine = $enQuarantaine;
 
 
+}
 }

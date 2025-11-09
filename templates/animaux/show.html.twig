@@ -3,7 +3,7 @@
 {% block title %}Animaux{% endblock %}
 
 {% block body %}
-    <h1>Animaux</h1>
+    <h1 style="border-bottom: lawngreen solid 3px">Vue de {{ animaux.nom }}</h1>
 
     <table class="table">
         <tbody>
@@ -29,11 +29,11 @@
             </tr>
             <tr>
                 <th>Date_de_Depart_du_zoo</th>
-                <td>{{ animaux.DateDeDepartDuZoo ? animaux.DateDeDepartDuZoo|date('Y-m-d') : '' }}</td>
+                <td>{{ animaux.DateDeDepartDuZoo ? animaux.DateDeDepartDuZoo|date('Y-m-d') : 'Toujours dans le zoo' }}</td>
             </tr>
             <tr>
                 <th>Le_zoo_en_es_proprietaire</th>
-                <td>{{ animaux.leZooEnEsProprietaire ? 'Yes' : 'No' }}</td>
+                <td>{{ animaux.leZooEnEsProprietaire ? 'Oui' : 'Non' }}</td>
             </tr>
             <tr>
                 <th>Genre</th>
@@ -49,18 +49,18 @@
             </tr>
             <tr>
                 <th>Sterilise</th>
-                <td>{{ animaux.Sterilise ? 'Yes' : 'No' }}</td>
+                <td>{{ animaux.Sterilise ? 'Oui' : 'Non' }}</td>
             </tr>
             <tr>
                 <th>EsEnQuarantaine</th>
-                <td>{{ animaux.EsEnQuarantaine ? 'Yes' : 'No' }}</td>
+                <td>{{ animaux.EsEnQuarantaine ? 'Oui' : 'Non' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_animaux_index') }}">back to list</a>
+    <a class="btn btn-warning" href="{{ path('app_animaux_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('app_animaux_edit', {'id': animaux.id}) }}">edit</a>
-
+    <a class="btn btn-info" href="{{ path('app_animaux_edit', {'id': animaux.id}) }}">Modifier</a>
+<br>
     {{ include('animaux/_delete_form.html.twig') }}
 {% endblock %}

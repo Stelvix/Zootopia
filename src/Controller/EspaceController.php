@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Espace;
 use App\Form\EspaceType;
 use App\Repository\EspaceRepository;
+use App\Repository\EnclosRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,16 @@ final class EspaceController extends AbstractController
         $form = $this->createForm(EspaceType::class, $espace);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+        // récupérer les dates d'ouverture et de fermeture
+        $dateOuverture = $espace->getDateOuverture();
+        $dateFermeture = $espace->getDateFermeture();
+      /*  // vérifier que la date d'ouverture es déja remplie avant d'ajouter la date de fermeture
+        if ($dateFermeture && !$dateOuverture) {
+            $this->addFlash('error', 'Veuillez renseigner la date d\'ouverture avant de définir une date de fermeture.');
+            return $this->redirectToRoute('app_espace_new');
+        }*/
             $entityManager->persist($espace);
             $entityManager->flush();
 
@@ -49,6 +59,19 @@ final class EspaceController extends AbstractController
             'espace' => $espace,
         ]);
     }
+
+
+#[Route('/espace/voir/{id}', name: 'app_espace_voir', methods: ['GET'])]
+public function voir(Espace $espace, EnclosRepository $enclosrepo): Response
+{
+    $enclosInEspace = $enclosrepo->findBy(['espace' => $espace]);
+    return $this->render('espace/voir.html.twig', [
+        'espace' => $espace,
+        'enclosInEspace' => $enclosInEspace,
+    ]);
+}
+
+
 
     #[Route('/{id}/edit', name: 'app_espace_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Espace $espace, EntityManagerInterface $entityManager): Response
