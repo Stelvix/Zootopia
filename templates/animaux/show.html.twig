@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Animaux{% endblock %}
+
+{% block body %}
+    <h1 style="border-bottom: lawngreen solid 3px">Vue de {{ animaux.nom }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ animaux.id }}</td>
+            </tr>
+            <tr>
+                <th>Numero_identification</th>
+                <td>{{ animaux.NumeroIdentification }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ animaux.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Date_naissance</th>
+                <td>{{ animaux.DateNaissance ? animaux.DateNaissance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_Arrivee_au_zoo</th>
+                <td>{{ animaux.DateArriveeAuZoo ? animaux.DateArriveeAuZoo|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_de_Depart_du_zoo</th>
+                <td>{{ animaux.DateDeDepartDuZoo ? animaux.DateDeDepartDuZoo|date('Y-m-d') : 'Toujours dans le zoo' }}</td>
+            </tr>
+            <tr>
+                <th>Le_zoo_en_es_proprietaire</th>
+                <td>{{ animaux.leZooEnEsProprietaire ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ animaux.Genre }}</td>
+            </tr>
+            <tr>
+                <th>Espece</th>
+                <td>{{ animaux.Espece }}</td>
+            </tr>
+            <tr>
+                <th>Sexe</th>
+                <td>{{ animaux.Sexe }}</td>
+            </tr>
+            <tr>
+                <th>Sterilise</th>
+                <td>{{ animaux.Sterilise ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>EsEnQuarantaine</th>
+                <td>{{ animaux.EsEnQuarantaine ? 'Oui' : 'Non' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-warning" href="{{ path('app_animaux_index') }}">Retour à la liste</a>
+
+    <a class="btn btn-info" href="{{ path('app_animaux_edit', {'id': animaux.id}) }}">Modifier</a>
+<br>
+    {{ include('animaux/_delete_form.html.twig') }}
+{% endblock %}

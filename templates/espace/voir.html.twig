@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace index{% endblock %}
+
+{% block body %}
+<h1>Enclos de l'espace : {{ espace.nom }}</h1>
+    <hr>
+
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h2 class="h4">Informations sur l'espace</h2>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    ID : {{ espace.id }}
+                </li>
+                <li class="list-group-item">
+                    Nom : {{ espace.nom }}
+                </li>
+                <li class="list-group-item">
+                    Superficie : {{ espace.superficie }} m²
+                </li>
+                <li class="list-group-item">
+                    Date d'ouverture : {{ espace.DateOuverture ? espace.DateOuverture|date('Y-m-d') : '' }}
+                </li>
+                <li class="list-group-item">
+                    Date de fermeture : {{ espace.DateFermeture ? espace.DateFermeture|date('Y-m-d') : 'Pas Fermé' }}
+                </li>
+                <li class="list-group-item">
+                    Nombre d'enclos : {{ espace.enclos|length }}
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <a class="btn btn-primary" href="{{ path('app_espace_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_espace_index') }}">Revenir à la page Espace</a>
+
+{% endblock %}

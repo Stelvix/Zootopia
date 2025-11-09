@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace index{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4 text-center">Liste des Espaces</h1>
+
+    <table class="table" style="border-radius: 20px; overflow: hidden; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Superficie</th>
+                <th>Date_ouverture</th>
+                <th>Date_fermeture</th>
+                <th>Nombre d'enclos</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for espace in espaces %}
+            <tr>
+                <td>{{ espace.id }}</td>
+                <td>{{ espace.Nom }}</td>
+                <td>{{ espace.superficie }} m²</td>
+                <td>{{ espace.DateOuverture ? espace.DateOuverture|date('Y-m-d') : '' }}</td>
+                <td>
+                    {% if espace.DateFermeture %}
+                    <span class="badge bg-danger"> {{ espace.DateFermeture|date('Y-m-d') }}</span>
+                    {% else %}
+                        <span class="badge bg-success">Pas fèrmé</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <span class="badge bg-info"> {{ espace.enclos|length }}</span>
+
+                </td>
+                <td>
+                    <a class="btn btn-outline-success" href="{{ path('app_espace_voir', {'id': espace.id}) }}">show</a>
+                    <a class="btn btn-outline-info" href="{{ path('app_espace_edit', {'id': espace.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="text-center mt-4">
+    <a class="btn btn-primary" href="{{ path('app_espace_new') }}">Create new</a>
+
+</div>
+{% endblock %}
