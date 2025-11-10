@@ -147,7 +147,7 @@ Suivez ces étapes pour lancer le projet sur votre machine locale.
 
 1.  **Cloner le dépôt**
     ```bash
-    git clone https://github.com/votre-utilisateur/zootopia.git
+    git clone https://github.com/Stelvix/Zootopia.git
     cd zootopia
     ```
 
